@@ -10,6 +10,8 @@ module co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
 
     opens co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca to javafx.fxml;
     exports co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca;
