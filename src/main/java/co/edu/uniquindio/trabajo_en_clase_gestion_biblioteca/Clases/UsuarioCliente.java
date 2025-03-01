@@ -7,4 +7,5 @@ public interface UsuarioCliente {
     void entregarPrestamo();
 
     void consultarLibro();
+
 }
