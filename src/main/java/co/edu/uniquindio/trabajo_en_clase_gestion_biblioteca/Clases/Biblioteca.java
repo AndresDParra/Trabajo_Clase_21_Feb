@@ -1,134 +1,8 @@
 package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-public class Biblioteca {
-
-    private ArrayList<Libro> libros;
-    private ArrayList<Miembro> miembros;
-    private ArrayList<Multa> multas;
-    private ArrayList<Bibliotecario> bibliotecarios;
-
-    public Biblioteca() {
-        this.libros = new ArrayList<>();
-        this.miembros = new ArrayList<>();
-        this.multas = new ArrayList<>();
-        this.bibliotecarios = new ArrayList<>();
-    }
-
-    // CRUD for Libro
-    public void agregarLibro(Libro libro) {
-        libros.add(libro);
-    }
-
-    public ArrayList<Libro> listarLibros() {
-        return libros;
-    }
-
-    public Optional<Libro> buscarLibroPorISBN(String ISBN) {
-        return libros.stream().filter(libro -> libro.getISBN().equals(ISBN)).findFirst();
-    }
-
-    public boolean eliminarLibro(String ISBN) {
-        return libros.removeIf(libro -> libro.getISBN().equals(ISBN));
-    }
-
-    public boolean actualizarLibro(String ISBN, Libro nuevoLibro) {
-        Optional<Libro> libroExistente = buscarLibroPorISBN(ISBN);
-        if (libroExistente.isPresent()) {
-            libros.remove(libroExistente.get());
-            libros.add(nuevoLibro);
-            return true;
-        }
-        return false;
-    }
-
-    // CRUD for Miembro
-    public void agregarMiembro(Miembro miembro) {
-        miembros.add(miembro);
-    }
-
-    public ArrayList<Miembro> listarMiembros() {
-        return miembros;
-    }
-
-    public Optional<Miembro> buscarMiembroPorID(String IDMiembro) {
-        return miembros.stream().filter(miembro -> miembro.getIDMiembro().equals(IDMiembro)).findFirst();
-    }
-
-    public boolean eliminarMiembro(String IDMiembro) {
-        return miembros.removeIf(miembro -> miembro.getIDMiembro().equals(IDMiembro));
-    }
-
-    public boolean actualizarMiembro(String IDMiembro, Miembro nuevoMiembro) {
-        Optional<Miembro> miembroExistente = buscarMiembroPorID(IDMiembro);
-        if (miembroExistente.isPresent()) {
-            miembros.remove(miembroExistente.get());
-            miembros.add(nuevoMiembro);
-            return true;
-        }
-        return false;
-    }
-
-    // CRUD for Multa
-    public void agregarMulta(Multa multa) {
-        multas.add(multa);
-    }
-
-    public ArrayList<Multa> listarMultas() {
-        return multas;
-    }
-
-    public boolean eliminarMulta(Multa multa) {
-        return multas.remove(multa);
-    }
-
-    // CRUD for Bibliotecario
-    public void agregarBibliotecario(Bibliotecario bibliotecario) {
-        bibliotecarios.add(bibliotecario);
-    }
-
-    public ArrayList<Bibliotecario> listarBibliotecarios() {
-        return bibliotecarios;
-    }
-
-    public Optional<Bibliotecario> buscarBibliotecarioPorID(String IDEmpleado) {
-        return bibliotecarios.stream().filter(bibliotecario -> bibliotecario.toString().contains(IDEmpleado)).findFirst();
-    }
-
-    public boolean eliminarBibliotecario(String IDEmpleado) {
-        return bibliotecarios.removeIf(bibliotecario -> bibliotecario.toString().contains(IDEmpleado));
-    }
-
-    public boolean actualizarBibliotecario(String IDEmpleado, Bibliotecario nuevoBibliotecario) {
-        Optional<Bibliotecario> bibliotecarioExistente = buscarBibliotecarioPorID(IDEmpleado);
-        if (bibliotecarioExistente.isPresent()) {
-            bibliotecarios.remove(bibliotecarioExistente.get());
-            bibliotecarios.add(nuevoBibliotecario);
-            return true;
-        }
-        return false;
-    }
-
-    public List<Libro> buscarPorGenero(Genero genero) {
-        List<Libro> resultado = new ArrayList<>();
-        for (Libro libro : libros) {
-            if (libro.getGenero() == genero) {
-                resultado.add(libro);
-            }
-        }
-        return resultado;
-    }
-
-
-}
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 public class Biblioteca {
 
@@ -138,20 +12,40 @@ public class Biblioteca {
     private static ArrayList<Libro> materialBibliograficos;
     private static ArrayList<Prestamo> prestamos;
 
-    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos) {
+    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos, ArrayList<Prestamo> prestamos) {
         Biblioteca.usuarios = usuarios;
         Biblioteca.computadores = computadores;
         Biblioteca.materialBibliograficos = materialBibliograficos;
         this.nombre = nombre;
+        Biblioteca.prestamos = prestamos;
     }
 
-    public static void consultarLibro() {
+    public static void consultarLibro(String titulo) {
+
+        if (buscarMaterialBibliografico(titulo) != null) {
+            System.out.println("El libro " + titulo + " se encuentra en la biblioteca" + "/n" + "y esta es su informacion:" + " " + Objects.requireNonNull(buscarMaterialBibliografico(titulo)).toString());
+        } else {
+            System.out.println("El libro " + titulo + " no se encuentra en la biblioteca");
+        }
+
     }
 
-    public static void entregarPrestamo() {
+    public static void entregarPrestamo(String titulo) {
+        if (BuscarPrestamo(titulo) != null) {
+            System.out.println("El libro " + titulo + " ha sido entregado");
+            BorrarPrestamo(BuscarPrestamo(titulo));
+        } else {
+            System.out.println("El libro " + titulo + " no se encuentra en la biblioteca");
+        }
     }
 
-    public static void pedirPrestamo() {
+    public static void pedirPrestamo(String nombreLibro) {
+        if (buscarMaterialBibliografico(nombreLibro) != null) {
+            System.out.println("El libro " + nombreLibro + " ha sido prestado");
+            CrearPrestamos(buscarMaterialBibliografico(nombreLibro), null, null, null, null, 0, 0);
+        } else {
+            System.out.println("El libro " + nombreLibro + " no se encuentra en la biblioteca");
+        }
     }
 
     public String getNombre() {
@@ -195,8 +89,8 @@ public class Biblioteca {
                 '}';
     }
 
-    public static void RegistrarCliente(String nombre, String email, String ID, int sanciones){
-        var cliente1 = new Cliente(nombre, email, ID, sanciones);
+    public static void RegistrarCliente(String nombre, String email, String ID, Multa multa){
+        var cliente1 = new ClienteCorregido(nombre, email, ID, multa);
         usuarios.add(cliente1);
     }
 
@@ -205,20 +99,20 @@ public class Biblioteca {
 
     }
 
-    public static void CrearPrestamos(Libro materialBibliograficoPrestado, LocalTime horaEntrega, LocalDate fechaEntrega, LocalTime horaDevolucion, LocalDate fechaDevolucion, boolean mora){
-        Prestamo prestamoNuevo = new Prestamo(materialBibliograficoPrestado, horaEntrega, fechaEntrega, horaDevolucion, fechaDevolucion, mora);
+    public static void CrearPrestamos(Material_Bibliografico materialBibliograficoPrestado, ClienteCorregido clienteCorregido, Bibliotecario bibliotecario, Date fechaEntrega, Date fechaDevolucion, int diasPrestamo, int precioDia) {
+        Prestamo prestamoNuevo = new Prestamo(materialBibliograficoPrestado, bibliotecario, clienteCorregido, fechaEntrega, fechaDevolucion,diasPrestamo, precioDia);
         prestamos.add(prestamoNuevo);
     }
 
-    public void BorrarCliente(Cliente cliente){
-        usuarios.remove(cliente);
+    public void BorrarCliente(ClienteCorregido clienteCorregido){
+        usuarios.remove(clienteCorregido);
     }
 
     public void BorrarMaterialBibliografico(Libro materialBibliografico){
         materialBibliograficos.remove(materialBibliografico);
     }
 
-    public void BorrarPrestamo(Prestamo prestamo){
+    public static void BorrarPrestamo(Prestamo prestamo){
         prestamos.remove(prestamo);
     }
 
@@ -231,7 +125,7 @@ public class Biblioteca {
         return null;
     }
 
-    public Prestamo BuscarPrestamo(String titulo) {
+    public static Prestamo BuscarPrestamo(String titulo) {
         for (Prestamo prestamo : prestamos) {
             if (titulo.equals(prestamo.getMaterialBibliograficoPrestado().getTitulo())) {
                 return prestamo;
@@ -249,6 +143,14 @@ public class Biblioteca {
         }
         return null;
     }
+
+    public static void InicializarClases(){
+        var biblioteca = new Biblioteca("Biblioteca", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Libro.InstanciarLibro();
+        ClienteCorregido.InstanciarCliente();
+        co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases.Prestamo.instanciarPrestamos();
+        Material_Bibliografico.InicializarMaterialBibliografico();
+
+    }
 }
 
->>>>>>> Andres

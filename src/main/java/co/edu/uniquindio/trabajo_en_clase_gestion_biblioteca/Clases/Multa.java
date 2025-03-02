@@ -52,4 +52,11 @@ public class Multa {
                 ", valorMulta=" + calcularValorMulta(diasVencidos) +
                 '}';
     }
+
+    // Multa.java
+    public void instanciarMultas() {
+        Multa multa1 = new Multa("2023-01-01", "Late return", 5);
+        Multa multa2 = new Multa("2023-02-01", "Damaged book", 10);
+        Multa multa3 = new Multa("2023-03-01", "Lost book", 15);
+    }
 }

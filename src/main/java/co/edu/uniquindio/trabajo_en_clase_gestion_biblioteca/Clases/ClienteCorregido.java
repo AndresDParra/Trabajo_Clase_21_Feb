@@ -2,51 +2,43 @@ package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 
 import java.util.ArrayList;
 
-public class Miembro {
+public class ClienteCorregido extends Usuario implements UsuarioCliente{
 
-    private String nombre;
-    private String IDMiembro;
-    private ArrayList<String> multas;
+    private Multa multa;
 
-    public Miembro(String nombre, String IDMiembro, ArrayList<String> multas) {
-        this.nombre = nombre;
-        this.IDMiembro = IDMiembro;
-        this.multas = multas;
+    public ClienteCorregido(String nombre, String email, String ID, Multa multa) {
+        super(nombre, email, ID);
+        this.multa = multa;
     }
 
-    public String getIDMiembro() {
-        return IDMiembro;
+    public Multa getMulta() {
+        return multa;
     }
 
-    public void setIDMiembro(String IDMiembro) {
-        this.IDMiembro = IDMiembro;
+    public void setMulta(Multa multa) {
+        this.multa = multa;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public ArrayList<String> getMultas() {
-        return multas;
-    }
-
-    public void setMultas(ArrayList<String> multas) {
-        this.multas = multas;
+    @Override
+    public void pedirPrestamo(Libro libro) {
+        System.out.println("Solicitud de préstamo enviada para el libro con ID: " + libro.getISBN());
     }
 
     @Override
-    public String toString() {
-        return "Miembro{" +
-                "nombre='" + nombre + '\'' +
-                ", IDMiembro='" + IDMiembro + '\'' +
-                ", multas=" + multas +
-                '}';
+    public void entregarPrestamo() {
+        System.out.println("Préstamo entregado.");
     }
 
+    @Override
+    public void consultarLibro() {
+        System.out.println("Consultando libro.");
+    }
+
+    public static void InstanciarCliente() {
+        ClienteCorregido clienteCorregido1 = new ClienteCorregido("Juan", "234@gmail.com", "123", new Multa("2023-01" ,"Robar libro", 10));
+        ClienteCorregido clienteCorregido2 = new ClienteCorregido("Pedro", "4567@gamil.com", "1234", new Multa("2023-01" ,"Robar libro", 50));
+    }
 
     /**
      * Permite al usuario solicitar un préstamo de un libro específico.
@@ -84,25 +76,25 @@ public class Miembro {
      * Permite al usuario ver las multas que tiene asociadas a su cuenta.
      */
     public void verMultas() {
-        if (multas.isEmpty()) {
+        if (multa == null) {
             System.out.println("No tienes multas pendientes.");
         } else {
-            System.out.println("Tus multas pendientes son:");
-            for (String multa : multas) {
-                System.out.println(multa);
-            }
+            System.out.println("Tu multa pendiente:");
+            System.out.println(multa);
         }
     }
 
     /**
-     * Permite al usuario pagar todas sus multas pendientes.
+     * Permite al usuario pagar su multa pendiente.
      */
     public void pagarMultas() {
-        if (multas.isEmpty()) {
+        if (multa == null) {
             System.out.println("No tienes multas pendientes de pago.");
         } else {
-            multas.clear();
-            System.out.println("Todas tus multas han sido pagadas.");
+            multa = null;
+            System.out.println("Tu multa ha sido pagada.");
         }
     }
+
 }
+
