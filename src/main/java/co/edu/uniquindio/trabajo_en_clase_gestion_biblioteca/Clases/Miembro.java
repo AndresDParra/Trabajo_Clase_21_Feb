@@ -54,7 +54,7 @@ public class Miembro {
      * @param libroID Identificador del libro que desea pedir prestado.
      */
     public void pedirPrestamo(String libroID) {
-        System.out.println("Solicitud de préstamo enviada para el libro con ID: " + libroID);
+
     }
 
     /**

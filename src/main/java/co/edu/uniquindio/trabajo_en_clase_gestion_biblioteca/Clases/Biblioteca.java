@@ -25,7 +25,7 @@ public class Biblioteca {
     public static void consultarLibro(String titulo) {
 
         if (buscarMaterialBibliografico(titulo) != null) {
-            System.out.println("El libro " + titulo + " se encuentra en la biblioteca" + "/n" + "y esta es su informacion:" + " " + buscarMaterialBibliografico(titulo).toString());
+            System.out.println("El libro " + titulo + " se encuentra en la biblioteca" + "/n" + "y esta es su informacion:" + " " + Objects.requireNonNull(buscarMaterialBibliografico(titulo)).toString());
         } else {
             System.out.println("El libro " + titulo + " no se encuentra en la biblioteca");
         }
@@ -91,8 +91,8 @@ public class Biblioteca {
                 '}';
     }
 
-    public static void RegistrarCliente(String nombre, String email, String ID, int sanciones){
-        var cliente1 = new Cliente(nombre, email, ID, sanciones);
+    public static void RegistrarCliente(String nombre, String email, String ID, Multa multa){
+        var cliente1 = new Cliente(nombre, email, ID, multa);
         usuarios.add(cliente1);
     }
 
@@ -101,7 +101,7 @@ public class Biblioteca {
 
     }
 
-    public static void CrearPrestamos(Libro materialBibliograficoPrestado, Cliente cliente, Bibliotecario bibliotecario, Date fechaEntrega, Date fechaDevolucion, int diasPrestamo, int precioDia) {
+    public static void CrearPrestamos(Material_Bibliografico materialBibliograficoPrestado, Cliente cliente, Bibliotecario bibliotecario, Date fechaEntrega, Date fechaDevolucion, int diasPrestamo, int precioDia) {
         Prestamo prestamoNuevo = new Prestamo(materialBibliograficoPrestado, bibliotecario, cliente, fechaEntrega, fechaDevolucion,diasPrestamo, precioDia);
         prestamos.add(prestamoNuevo);
     }
@@ -144,6 +144,15 @@ public class Biblioteca {
             }
         }
         return null;
+    }
+
+    public static void InicializarClases(){
+        var biblioteca = new Biblioteca("Biblioteca", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Libro.InstanciarLibro();
+        Cliente.InstanciarCliente();
+        Prestamo.instanciarPrestamos();
+        Material_Bibliografico.InicializarMaterialBibliografico();
+
     }
 }
 

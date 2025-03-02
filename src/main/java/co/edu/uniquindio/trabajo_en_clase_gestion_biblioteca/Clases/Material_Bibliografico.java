@@ -54,4 +54,13 @@ public class Material_Bibliografico {
                 ", estado=" + estado +
                 '}';
     }
+
+    public static void InicializarMaterialBibliografico(){
+
+        CD cd1 = new CD("The Dark Side of the Moon", "Pink Floyd", "978-84-450-7359-3", Estado.DISPONIBLE, "Rock", 43);
+        CD cd2 = new CD("Thriller", "Michael Jackson", "978-84-450-7359-3", Estado.PRESTADO, "Pop", 42);
+        Revista revista1 = new Revista("National Geographic", "National Geographic Society", "978-84-450-7359-3", Estado.DISPONIBLE, "Ciencia");
+        Revista revista2 = new Revista("Moda", "Kim Kardasian", "978-84-470-7359-3", Estado.DISPONIBLE, "Ciencia");
+
+    }
 }

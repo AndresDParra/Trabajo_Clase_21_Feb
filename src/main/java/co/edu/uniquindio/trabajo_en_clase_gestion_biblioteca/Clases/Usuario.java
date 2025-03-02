@@ -1,6 +1,6 @@
 package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 
-public class Usuario {
+public abstract class Usuario {
     private String nombre;
     private String email;
     private String ID;

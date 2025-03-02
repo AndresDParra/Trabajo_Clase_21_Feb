@@ -5,8 +5,8 @@ import java.util.Date;
 public class Prestamo {
     
     private Material_Bibliografico material_bibliografico;
-    private Miembro miembro;
-    private Empleado empleado;
+    private Bibliotecario miembro;
+    private Cliente empleado;
     private Date fechaPrestamo;
     private Date fechaEntrega;
     private int diasPrestamo;
@@ -30,19 +30,23 @@ public class Prestamo {
         this.material_bibliografico = material_bibliografico;
     }
 
-    public Miembro getMiembro() {
+    public Material_Bibliografico getMaterial_bibliografico() {
+        return material_bibliografico;
+    }
+
+    public Bibliotecario getMiembro() {
         return miembro;
     }
 
-    public void setMiembro(Miembro miembro) {
+    public void setMiembro(Bibliotecario miembro) {
         this.miembro = miembro;
     }
 
-    public Empleado getEmpleado() {
+    public Cliente getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(Cliente empleado) {
         this.empleado = empleado;
     }
 
@@ -80,9 +84,7 @@ public class Prestamo {
 
     public double calcularValorPrestamo(){
 
-        double valorPrestamo = precioDia * diasPrestamo;
-
-        return valorPrestamo;
+        return precioDia * diasPrestamo;
     }
 
     @Override
@@ -98,13 +100,12 @@ public class Prestamo {
                 ", costo total=" + calcularValorPrestamo() +
                 '}';
     }
-    public void instanciarPrestamos() {
+    public static void instanciarPrestamos() {
         Material_Bibliografico material1 = new Material_Bibliografico("Libro1", "Autor1", "nada",  Estado.DISPONIBLE);
         Bibliotecario bibliotecario = new Bibliotecario("Juan Perez", "123456", 1000000, 40, 25000);
-        Cliente cliente1 = new Cliente("Carlos", "789", "2000", 40);
+        Cliente cliente1 = new Cliente("Carlos", "789", "2000", new Multa("2023-01-01", "Late return", 5));
         Date fechaPrestamo = new Date();
         Date fechaEntrega = new Date(fechaPrestamo.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days later
-
-        Prestamo prestamo1 = new Prestamo(material1,bibliotecario,cliente1 , fechaPrestamo, fechaEntrega, 7, 500);
+        Biblioteca.CrearPrestamos(material1,cliente1,bibliotecario , fechaPrestamo, fechaEntrega, 7, 500);
     }
 }
