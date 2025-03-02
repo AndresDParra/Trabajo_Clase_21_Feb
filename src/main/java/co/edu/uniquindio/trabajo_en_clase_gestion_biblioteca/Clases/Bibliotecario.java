@@ -36,10 +36,14 @@ public class Bibliotecario extends Empleado {
         return listaPrestamos;
     }
 
-    public void InicializarBibliotecarios(){
+    public static void InicializarBibliotecarios(){
         Bibliotecario bibliotecario1 = new Bibliotecario("Juan", "123", 1000000, 40, 25000);
         Bibliotecario bibliotecario2 = new Bibliotecario("Pedro", "124", 1000000, 40, 25000);
         Bibliotecario bibliotecario3 = new Bibliotecario("Maria", "125", 1000000, 40, 25000);
         Bibliotecario bibliotecario4 = new Bibliotecario("Ana", "126", 1000000, 40, 25000);
+        Biblioteca.getBibliotecarios().add(bibliotecario1);
+        Biblioteca.getBibliotecarios().add(bibliotecario2);
+        Biblioteca.getBibliotecarios().add(bibliotecario3);
+        Biblioteca.getBibliotecarios().add(bibliotecario3);
     }
 }

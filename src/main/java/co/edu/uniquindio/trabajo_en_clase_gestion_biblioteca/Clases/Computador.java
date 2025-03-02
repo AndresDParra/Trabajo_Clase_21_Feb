@@ -47,6 +47,9 @@ public class Computador  {
         return "Computador{" + "marca=" + marca + ", modelo=" + modelo + '}';
     }
 
-
+    public static void InstanciarComputador() {
+        Computador computador1 = new Computador("hp", "elitebook", true);
+        Biblioteca.getComputadores().add(computador1);
+    }
 
 }

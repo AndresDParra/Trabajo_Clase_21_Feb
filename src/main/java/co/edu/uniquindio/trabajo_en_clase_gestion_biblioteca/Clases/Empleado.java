@@ -21,6 +21,46 @@ public abstract class Empleado {
         return salarioBase + (horasTrabajadas * tarifaPorHora);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getIDEmpleado() {
+        return IDEmpleado;
+    }
+
+    public void setIDEmpleado(String IDEmpleado) {
+        this.IDEmpleado = IDEmpleado;
+    }
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public int getHorasTrabajadas() {
+        return horasTrabajadas;
+    }
+
+    public void setHorasTrabajadas(int horasTrabajadas) {
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    public double getTarifaPorHora() {
+        return tarifaPorHora;
+    }
+
+    public void setTarifaPorHora(double tarifaPorHora) {
+        this.tarifaPorHora = tarifaPorHora;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" +

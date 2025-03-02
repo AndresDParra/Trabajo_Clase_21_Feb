@@ -1,7 +1,5 @@
 package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -13,13 +11,15 @@ public class Biblioteca {
     private static ArrayList<Computador> computadores;
     private static ArrayList<Libro> materialBibliograficos;
     private static ArrayList<Prestamo> prestamos;
+    private static ArrayList<Bibliotecario> bibliotecarios;
 
-    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos, ArrayList<Prestamo> prestamos) {
+    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos, ArrayList<Prestamo> prestamos, ArrayList<Bibliotecario> bibliotecarios) {
         Biblioteca.usuarios = usuarios;
         Biblioteca.computadores = computadores;
         Biblioteca.materialBibliograficos = materialBibliograficos;
         this.nombre = nombre;
         Biblioteca.prestamos = prestamos;
+        Biblioteca.bibliotecarios = bibliotecarios;
     }
 
     public static void consultarLibro(String titulo) {
@@ -41,10 +41,10 @@ public class Biblioteca {
         }
     }
 
-    public static void pedirPrestamo(String nombreLibro) {
+    public static void pedirPrestamo(String nombreLibro, Cliente cliente, Bibliotecario bibliotecario, Date fechaEntrega, Date fechaDevolucion, int diasPrestamo, int precioDia) {
         if (buscarMaterialBibliografico(nombreLibro) != null) {
             System.out.println("El libro " + nombreLibro + " ha sido prestado");
-            CrearPrestamos(buscarMaterialBibliografico(nombreLibro), null, null, null, null, 0, 0);
+            CrearPrestamos(buscarMaterialBibliografico(nombreLibro), cliente, bibliotecario, fechaEntrega, fechaDevolucion, diasPrestamo, precioDia);
         } else {
             System.out.println("El libro " + nombreLibro + " no se encuentra en la biblioteca");
         }
@@ -80,6 +80,22 @@ public class Biblioteca {
 
     public static void setMaterialBibliograficos(ArrayList<Libro> materialBibliograficos) {
         Biblioteca.materialBibliograficos = materialBibliograficos;
+    }
+
+    public static ArrayList<Prestamo> getPrestamos() {
+        return prestamos;
+    }
+
+    public static void setPrestamos(ArrayList<Prestamo> prestamos) {
+        Biblioteca.prestamos = prestamos;
+    }
+
+    public static ArrayList<Bibliotecario> getBibliotecarios() {
+        return bibliotecarios;
+    }
+
+    public static void setBibliotecarios(ArrayList<Bibliotecario> bibliotecarios) {
+        Biblioteca.bibliotecarios = bibliotecarios;
     }
 
     @Override
@@ -147,12 +163,24 @@ public class Biblioteca {
     }
 
     public static void InicializarClases(){
-        var biblioteca = new Biblioteca("Biblioteca", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        var biblioteca = new Biblioteca("Biblioteca", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         Libro.InstanciarLibro();
         Cliente.InstanciarCliente();
         Prestamo.instanciarPrestamos();
         Material_Bibliografico.InicializarMaterialBibliografico();
+        Bibliotecario.InicializarBibliotecarios();
+        Computador.InstanciarComputador();
 
+
+    }
+
+    public static Object buscarBibliotecario(String nombre){
+        for (Bibliotecario bibliotecario: bibliotecarios){
+            if (nombre.equals(bibliotecario.getNombre())){
+                return bibliotecario;
+            }
+        }
+        return null;
     }
 }
 
