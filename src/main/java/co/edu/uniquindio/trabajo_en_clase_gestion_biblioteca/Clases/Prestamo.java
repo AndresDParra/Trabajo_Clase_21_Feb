@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Prestamo {
     
-    private Libro libro;
+    private Material_Bibliografico material_bibliografico;
     private Miembro miembro;
     private Empleado empleado;
     private Date fechaPrestamo;
@@ -12,22 +12,22 @@ public class Prestamo {
     private int diasPrestamo;
     private int precioDia;
 
-    public Prestamo(Libro libro, Miembro miembro, Empleado empleado, Date fechaPrestamo, Date fechaEntrega, int diasPrestamo, int precioDia) {
-        this.libro = libro;
+    public Prestamo(Material_Bibliografico material_bibliografico, Bibliotecario miembro, Cliente cliente, Date fechaPrestamo, Date fechaEntrega, int diasPrestamo, int precioDia) {
+        this.material_bibliografico = material_bibliografico;
         this.miembro = miembro;
-        this.empleado = empleado;
+        this.empleado = cliente;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
         this.diasPrestamo = diasPrestamo;
         this.precioDia = precioDia;
     }
 
-    public Libro getLibro() {
-        return libro;
+    public Material_Bibliografico getMaterialBibliograficoPrestado() {
+        return material_bibliografico;
     }
 
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setMaterial_bibliografico(Material_Bibliografico material_bibliografico) {
+        this.material_bibliografico = material_bibliografico;
     }
 
     public Miembro getMiembro() {
@@ -88,7 +88,7 @@ public class Prestamo {
     @Override
     public String toString() {
         return "Prestamo{" +
-                "libro=" + libro +
+                "libro=" + material_bibliografico +
                 ", miembro=" + miembro +
                 ", empleado=" + empleado +
                 ", fechaPrestamo=" + fechaPrestamo +
@@ -97,5 +97,14 @@ public class Prestamo {
                 ", precioDia=" + precioDia +
                 ", costo total=" + calcularValorPrestamo() +
                 '}';
+    }
+    public void instanciarPrestamos() {
+        Material_Bibliografico material1 = new Material_Bibliografico("Libro1", "Autor1", "nada",  Estado.DISPONIBLE);
+        Bibliotecario bibliotecario = new Bibliotecario("Juan Perez", "123456", 1000000, 40, 25000);
+        Cliente cliente1 = new Cliente("Carlos", "789", "2000", 40);
+        Date fechaPrestamo = new Date();
+        Date fechaEntrega = new Date(fechaPrestamo.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days later
+
+        Prestamo prestamo1 = new Prestamo(material1,bibliotecario,cliente1 , fechaPrestamo, fechaEntrega, 7, 500);
     }
 }

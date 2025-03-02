@@ -6,9 +6,9 @@ public class Miembro {
 
     private String nombre;
     private String IDMiembro;
-    private ArrayList<String> multas;
+    private ArrayList<Multa> multas;
 
-    public Miembro(String nombre, String IDMiembro, ArrayList<String> multas) {
+    public Miembro(String nombre, String IDMiembro, ArrayList<Multa> multas) {
         this.nombre = nombre;
         this.IDMiembro = IDMiembro;
         this.multas = multas;
@@ -30,11 +30,11 @@ public class Miembro {
         this.nombre = nombre;
     }
 
-    public ArrayList<String> getMultas() {
+    public ArrayList<Multa> getMultas() {
         return multas;
     }
 
-    public void setMultas(ArrayList<String> multas) {
+    public void setMultas(ArrayList<Multa> multas) {
         this.multas = multas;
     }
 
@@ -88,7 +88,7 @@ public class Miembro {
             System.out.println("No tienes multas pendientes.");
         } else {
             System.out.println("Tus multas pendientes son:");
-            for (String multa : multas) {
+            for (Multa multa : multas) {
                 System.out.println(multa);
             }
         }
@@ -104,5 +104,11 @@ public class Miembro {
             multas.clear();
             System.out.println("Todas tus multas han sido pagadas.");
         }
+    }
+
+    public void InicializarMiembros() {
+        Miembro miembro1 = new Miembro("Juan Perez", "123456", new ArrayList<Multa>());
+        Miembro miembro2 = new Miembro("Maria Rodriguez", "654321", new ArrayList<Multa>());
+        Miembro miembro3 = new Miembro("Pedro Gomez", "987654", new ArrayList<Multa>());
     }
 }

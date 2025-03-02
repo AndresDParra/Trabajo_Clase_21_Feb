@@ -35,4 +35,11 @@ public class Bibliotecario extends Empleado {
     public ArrayList<Prestamo> listarPrestamos() {
         return listaPrestamos;
     }
+
+    public void InicializarBibliotecarios(){
+        Bibliotecario bibliotecario1 = new Bibliotecario("Juan", "123", 1000000, 40, 25000);
+        Bibliotecario bibliotecario2 = new Bibliotecario("Pedro", "124", 1000000, 40, 25000);
+        Bibliotecario bibliotecario3 = new Bibliotecario("Maria", "125", 1000000, 40, 25000);
+        Bibliotecario bibliotecario4 = new Bibliotecario("Ana", "126", 1000000, 40, 25000);
+    }
 }

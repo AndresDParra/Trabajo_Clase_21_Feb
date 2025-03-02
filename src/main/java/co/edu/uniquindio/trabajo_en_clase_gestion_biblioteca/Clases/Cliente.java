@@ -31,5 +31,11 @@ public class Cliente extends Usuario implements UsuarioCliente{
     public void consultarLibro() {
 
     }
+
+    public void InstanciarCliente() {
+        Cliente cliente1 = new Cliente("Juan", "234@gmail.com", "123", 0);
+        Cliente cliente2 = new Cliente("Pedro", "4567@gamil.com", "1234", 0);
+    }
+
 }
 

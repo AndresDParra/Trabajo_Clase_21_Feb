@@ -3,6 +3,8 @@ package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 public class Biblioteca {
 
@@ -12,20 +14,40 @@ public class Biblioteca {
     private static ArrayList<Libro> materialBibliograficos;
     private static ArrayList<Prestamo> prestamos;
 
-    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos) {
+    public Biblioteca(String nombre, ArrayList<Usuario> usuarios, ArrayList<Computador> computadores, ArrayList<Libro> materialBibliograficos, ArrayList<Prestamo> prestamos) {
         Biblioteca.usuarios = usuarios;
         Biblioteca.computadores = computadores;
         Biblioteca.materialBibliograficos = materialBibliograficos;
         this.nombre = nombre;
+        Biblioteca.prestamos = prestamos;
     }
 
-    public static void consultarLibro() {
+    public static void consultarLibro(String titulo) {
+
+        if (buscarMaterialBibliografico(titulo) != null) {
+            System.out.println("El libro " + titulo + " se encuentra en la biblioteca" + "/n" + "y esta es su informacion:" + " " + buscarMaterialBibliografico(titulo).toString());
+        } else {
+            System.out.println("El libro " + titulo + " no se encuentra en la biblioteca");
+        }
+
     }
 
-    public static void entregarPrestamo() {
+    public static void entregarPrestamo(String titulo) {
+        if (BuscarPrestamo(titulo) != null) {
+            System.out.println("El libro " + titulo + " ha sido entregado");
+            BorrarPrestamo(BuscarPrestamo(titulo));
+        } else {
+            System.out.println("El libro " + titulo + " no se encuentra en la biblioteca");
+        }
     }
 
-    public static void pedirPrestamo() {
+    public static void pedirPrestamo(String nombreLibro) {
+        if (buscarMaterialBibliografico(nombreLibro) != null) {
+            System.out.println("El libro " + nombreLibro + " ha sido prestado");
+            CrearPrestamos(buscarMaterialBibliografico(nombreLibro), null, null, null, null, 0, 0);
+        } else {
+            System.out.println("El libro " + nombreLibro + " no se encuentra en la biblioteca");
+        }
     }
 
     public String getNombre() {
@@ -79,8 +101,8 @@ public class Biblioteca {
 
     }
 
-    public static void CrearPrestamos(Libro materialBibliograficoPrestado, LocalTime horaEntrega, LocalDate fechaEntrega, LocalTime horaDevolucion, LocalDate fechaDevolucion, boolean mora){
-        Prestamo prestamoNuevo = new Prestamo(materialBibliograficoPrestado, horaEntrega, fechaEntrega, horaDevolucion, fechaDevolucion, mora);
+    public static void CrearPrestamos(Libro materialBibliograficoPrestado, Cliente cliente, Bibliotecario bibliotecario, Date fechaEntrega, Date fechaDevolucion, int diasPrestamo, int precioDia) {
+        Prestamo prestamoNuevo = new Prestamo(materialBibliograficoPrestado, bibliotecario, cliente, fechaEntrega, fechaDevolucion,diasPrestamo, precioDia);
         prestamos.add(prestamoNuevo);
     }
 
@@ -92,7 +114,7 @@ public class Biblioteca {
         materialBibliograficos.remove(materialBibliografico);
     }
 
-    public void BorrarPrestamo(Prestamo prestamo){
+    public static void BorrarPrestamo(Prestamo prestamo){
         prestamos.remove(prestamo);
     }
 
@@ -105,7 +127,7 @@ public class Biblioteca {
         return null;
     }
 
-    public Prestamo BuscarPrestamo(String titulo) {
+    public static Prestamo BuscarPrestamo(String titulo) {
         for (Prestamo prestamo : prestamos) {
             if (titulo.equals(prestamo.getMaterialBibliograficoPrestado().getTitulo())) {
                 return prestamo;
