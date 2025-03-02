@@ -1,6 +1,7 @@
 package co.edu.uniquindio.trabajo_en_clase_gestion_biblioteca.Clases;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Biblioteca {
@@ -110,4 +111,16 @@ public class Biblioteca {
         }
         return false;
     }
+
+    public List<Libro> buscarPorGenero(Genero genero) {
+        List<Libro> resultado = new ArrayList<>();
+        for (Libro libro : libros) {
+            if (libro.getGenero() == genero) {
+                resultado.add(libro);
+            }
+        }
+        return resultado;
+    }
+
+
 }

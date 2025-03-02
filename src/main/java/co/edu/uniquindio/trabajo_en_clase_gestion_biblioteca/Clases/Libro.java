@@ -6,11 +6,13 @@ public class Libro {
     private String autor;
     private String ISBN;
     private Estado estado;
+    private Genero genero;
 
-    public Libro(String titulo, String autor, String ISBN, Estado estado) {
+    public Libro(String titulo, String autor, String ISBN, Genero genero, Estado estado) {
         this.titulo = titulo;
         this.autor = autor;
         this.ISBN = ISBN;
+        this.genero = genero;
         this.estado = estado;
     }
 
@@ -44,6 +46,14 @@ public class Libro {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 
     @Override
