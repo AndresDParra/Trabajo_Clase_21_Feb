@@ -6,6 +6,7 @@ public class Libro {
     private String autor;
     private String ISBN;
     private Estado estado;
+<<<<<<< HEAD
     private Genero genero;
 
     public Libro(String titulo, String autor, String ISBN, Genero genero, Estado estado) {
@@ -13,6 +14,13 @@ public class Libro {
         this.autor = autor;
         this.ISBN = ISBN;
         this.genero = genero;
+=======
+
+    public Libro(String titulo, String autor, String ISBN, Estado estado) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ISBN = ISBN;
+>>>>>>> Andres
         this.estado = estado;
     }
 
@@ -48,6 +56,7 @@ public class Libro {
         this.titulo = titulo;
     }
 
+<<<<<<< HEAD
     public Genero getGenero() {
         return genero;
     }
@@ -56,6 +65,8 @@ public class Libro {
         this.genero = genero;
     }
 
+=======
+>>>>>>> Andres
     @Override
     public String toString() {
         return "Libro{" +
